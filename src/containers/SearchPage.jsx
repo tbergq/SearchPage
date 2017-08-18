@@ -1,5 +1,22 @@
 import React from 'react';
+import SearchFormContainer from './SearchFormContainer';
 
-const SearchPage = () => <div className="container">SearchPage</div>;
+export default class SearchPage extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default SearchPage;
+    this.submitSearchForm = this.submitSearchForm.bind(this);
+  }
+
+  submitSearchForm(values) {
+    console.log('submit form', values, this);
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <SearchFormContainer onSubmit={this.submitSearchForm} />
+      </div>
+    );
+  }
+}
