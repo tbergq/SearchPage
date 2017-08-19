@@ -6,11 +6,12 @@ import 'flexboxgrid/css/flexboxgrid.css';
 import Routes from './components/Routes';
 import Navbar from './components/Navigationbar';
 
+// eslint-disable-next-line
 injectGlobal`
   html { 
     overflow: auto;
   }
-  
+
   body {
     margin: 0;
   }

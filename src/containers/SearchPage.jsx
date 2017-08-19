@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import SearchFormContainer from './SearchFormContainer';
+import FlightList from '../components/FlightList';
 import { getSearchPage } from '../reducers';
 import {
   searchSuggestionChange,
@@ -33,6 +35,7 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    const { flights, searchingFlights } = this.props;
     return (
       <Wrapper>
         <div className="row">
@@ -41,6 +44,12 @@ class SearchPage extends React.Component {
               {...this.props}
               onSubmit={this.submitSearchForm}
             />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12">
+            <FlightList flights={flights} />
+            {searchingFlights ? <CircularProgress /> : null}
           </div>
         </div>
       </Wrapper>
@@ -53,6 +62,7 @@ SearchPage.propTypes = {
   toSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchFlights: PropTypes.func.isRequired,
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searchingFlights: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

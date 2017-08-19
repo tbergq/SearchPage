@@ -1,12 +1,14 @@
 import {
   FETCH_PLACES_SUCCESS,
   FETCH_FLIGHTS_SUCCESS,
+  SEARCHING_FLIGHTS,
 } from '../actions/SearchPage.actions';
 
 const initialState = {
   fromSuggestions: [],
   toSuggestions: [],
   flights: [],
+  searchingFlights: false,
 };
 
 export default function searchPageReducer(state = initialState, action) {
@@ -21,7 +23,12 @@ export default function searchPageReducer(state = initialState, action) {
       }
       return state;
     case FETCH_FLIGHTS_SUCCESS:
-      return Object.assign({}, state, { flights: action.flights });
+      return Object.assign({}, state, {
+        flights: action.flights.data,
+        searchingFlights: false,
+      });
+    case SEARCHING_FLIGHTS:
+      return Object.assign({}, state, { searchingFlights: true });
     default:
       return state;
   }
