@@ -27,7 +27,7 @@ const Datepicker = ({ name, labelText }) => (
   </div>
 );
 
-Datepicker.PropTypes = {
+Datepicker.propTypes = {
   name: PropTypes.string.isRequired,
   labelText: PropTypes.string.isRequired,
 };

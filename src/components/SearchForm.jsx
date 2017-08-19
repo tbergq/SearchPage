@@ -1,23 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutoComplete from 'material-ui/AutoComplete';
+import { Field } from 'redux-form';
+import RaisedButton from 'material-ui/RaisedButton';
+import styled from 'styled-components';
 
-const dataSource = ['java', 'javascript', 'C#', 'assembler'];
+import AutoComplete from './RenderAutoComplete';
+import DatePicker from './RenderDatePicker';
 
-const SearchForm = ({ handleSubmit }) => (
-  <form onSubmit={handleSubmit} className="form-inline">
-    <div>
-      <AutoComplete
-        hintText="Type anything"
-        dataSource={dataSource}
-        onUpdateInput={value => console.log(value)}
+const InlineForm = styled.div`
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+`;
+
+const FormItemWrapper = styled.div`
+  margin-left: 16px;
+`;
+
+const SearchForm = ({
+  handleSubmit,
+  fromSuggestions,
+  toSuggestions,
+  searchSuggestionChange,
+}) => (
+  <form onSubmit={handleSubmit}>
+    <InlineForm>
+      <Field
+        name="from"
+        component={AutoComplete}
+        label="From"
+        dataSource={fromSuggestions}
+        searchSuggestionChange={searchSuggestionChange}
+        changeKey="fromSuggestions"
       />
-    </div>
+      <FormItemWrapper>
+        <Field
+          name="to"
+          component={AutoComplete}
+          label="To"
+          dataSource={toSuggestions}
+          searchSuggestionChange={searchSuggestionChange}
+          changeKey="toSuggestions"
+        />
+      </FormItemWrapper>
+      <FormItemWrapper>
+        <Field name="date" component={DatePicker} label="Date" />
+      </FormItemWrapper>
+      <FormItemWrapper>
+        <RaisedButton label="Go" type="submit" primary />
+      </FormItemWrapper>
+    </InlineForm>
   </form>
 );
 
-SearchForm.PropTypes = {
+SearchForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  fromSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  toSuggestions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  searchSuggestionChange: PropTypes.func.isRequired,
 };
 
 export default SearchForm;

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
-
-import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'material-ui/DatePicker';
 
 const DATE_FORMAT = 'DD.MM.YYYY';
 
@@ -13,22 +11,21 @@ export default class RenderDatePicker extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(date) {
+  handleChange(event, date) {
     const { input } = this.props;
+    console.log('date', date);
     input.onChange(moment(date).format(DATE_FORMAT));
   }
 
   render() {
-    const { input, placeholder, meta: { touched, error } } = this.props;
+    const { input, label, meta: { touched, error } } = this.props;
 
     return (
       <div>
         <DatePicker
-          {...input}
-          placeholder={placeholder}
-          dateFormat={DATE_FORMAT}
-          selected={input.value ? moment(input.value, DATE_FORMAT) : null}
+          name={input.name}
           onChange={this.handleChange}
+          floatingLabelText={label}
         />
         {touched && error && <span>{error}</span>}
       </div>
@@ -36,7 +33,7 @@ export default class RenderDatePicker extends React.Component {
   }
 }
 
-RenderDatePicker.PropTypes = {
+RenderDatePicker.propTypes = {
   input: PropTypes.shape({
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
@@ -45,9 +42,5 @@ RenderDatePicker.PropTypes = {
     touched: PropTypes.bool,
     error: PropTypes.bool,
   }).isRequired,
-  placeholder: PropTypes.string,
-};
-
-RenderDatePicker.defaultProps = {
-  placeholder: '',
+  label: PropTypes.string.isRequired,
 };
