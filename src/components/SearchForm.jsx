@@ -1,26 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import AutoComplete from 'material-ui/AutoComplete';
 
-import FormField from './FormField';
-import DatePicker from './DatePicker';
-
-const MarginSpan = styled.span`
-  margin-left: 5px;
-`;
+const dataSource = ['java', 'javascript', 'C#', 'assembler'];
 
 const SearchForm = ({ handleSubmit }) => (
   <form onSubmit={handleSubmit} className="form-inline">
-    <FormField name="from" component="input" type="text" labelText="From" />
-    <MarginSpan>
-      <FormField name="to" component="input" type="text" labelText="To" />
-    </MarginSpan>
-    <MarginSpan>
-      <DatePicker name="date" labelText="Date" />
-    </MarginSpan>
-    <MarginSpan>
-      <input type="submit" className="btn btn-primary" value="Search" />
-    </MarginSpan>
+    <div>
+      <AutoComplete
+        hintText="Type anything"
+        dataSource={dataSource}
+        onUpdateInput={value => console.log(value)}
+      />
+    </div>
   </form>
 );
 

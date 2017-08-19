@@ -29,7 +29,6 @@ export default class RenderDatePicker extends React.Component {
           dateFormat={DATE_FORMAT}
           selected={input.value ? moment(input.value, DATE_FORMAT) : null}
           onChange={this.handleChange}
-          className="form-control"
         />
         {touched && error && <span>{error}</span>}
       </div>

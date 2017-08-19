@@ -1,5 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import SearchFormContainer from './SearchFormContainer';
+
+const Wrapper = styled.div`
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+`;
 
 export default class SearchPage extends React.Component {
   constructor(props) {
@@ -14,9 +22,13 @@ export default class SearchPage extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <SearchFormContainer onSubmit={this.submitSearchForm} />
-      </div>
+      <Wrapper>
+        <div className="row">
+          <div className="col-xs-12">
+            <SearchFormContainer onSubmit={this.submitSearchForm} />
+          </div>
+        </div>
+      </Wrapper>
     );
   }
 }
