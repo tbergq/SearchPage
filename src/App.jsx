@@ -14,6 +14,7 @@ injectGlobal`
 
   body {
     margin: 0;
+    background-color: #f2f1ed;
   }
 `;
 

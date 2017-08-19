@@ -13,9 +13,12 @@ import {
 } from '../actions/SearchPage.actions';
 
 const Wrapper = styled.div`
-  padding-left: 24px;
-  padding-right: 24px;
   padding-top: 24px;
+`;
+
+const SearchFormWrapper = styled.div`
+  margin-bottom: 16px;
+  background-color: #ffffff;
 `;
 
 class SearchPage extends React.Component {
@@ -38,14 +41,14 @@ class SearchPage extends React.Component {
     const { flights, searchingFlights } = this.props;
     return (
       <Wrapper>
-        <div className="row">
+        <SearchFormWrapper className="row">
           <div className="col-xs-12">
             <SearchFormContainer
               {...this.props}
               onSubmit={this.submitSearchForm}
             />
           </div>
-        </div>
+        </SearchFormWrapper>
         <div className="row">
           <div className="col-xs-12">
             <FlightList flights={flights} />

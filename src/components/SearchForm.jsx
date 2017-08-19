@@ -7,6 +7,12 @@ import styled from 'styled-components';
 import AutoComplete from './RenderAutoComplete';
 import DatePicker from './RenderDatePicker';
 
+const Wrapper = styled.div`
+  margin-left: 24px;
+  margin-right: 24px;
+  padding-bottom: 24px;
+`;
+
 const InlineForm = styled.div`
   display: flex;
   align-items: baseline;
@@ -23,34 +29,36 @@ const SearchForm = ({
   toSuggestions,
   searchSuggestionChange,
 }) => (
-  <form onSubmit={handleSubmit}>
-    <InlineForm>
-      <Field
-        name="from"
-        component={AutoComplete}
-        label="From"
-        dataSource={fromSuggestions}
-        searchSuggestionChange={searchSuggestionChange}
-        changeKey="fromSuggestions"
-      />
-      <FormItemWrapper>
+  <Wrapper>
+    <form onSubmit={handleSubmit}>
+      <InlineForm>
         <Field
-          name="to"
+          name="from"
           component={AutoComplete}
-          label="To"
-          dataSource={toSuggestions}
+          label="From"
+          dataSource={fromSuggestions}
           searchSuggestionChange={searchSuggestionChange}
-          changeKey="toSuggestions"
+          changeKey="fromSuggestions"
         />
-      </FormItemWrapper>
-      <FormItemWrapper>
-        <Field name="date" component={DatePicker} label="Date" />
-      </FormItemWrapper>
-      <FormItemWrapper>
-        <RaisedButton label="Go" type="submit" primary />
-      </FormItemWrapper>
-    </InlineForm>
-  </form>
+        <FormItemWrapper>
+          <Field
+            name="to"
+            component={AutoComplete}
+            label="To"
+            dataSource={toSuggestions}
+            searchSuggestionChange={searchSuggestionChange}
+            changeKey="toSuggestions"
+          />
+        </FormItemWrapper>
+        <FormItemWrapper>
+          <Field name="date" component={DatePicker} label="Date" />
+        </FormItemWrapper>
+        <FormItemWrapper>
+          <RaisedButton label="Go" type="submit" primary />
+        </FormItemWrapper>
+      </InlineForm>
+    </form>
+  </Wrapper>
 );
 
 SearchForm.propTypes = {
