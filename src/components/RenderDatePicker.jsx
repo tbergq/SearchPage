@@ -4,7 +4,7 @@ import moment from 'moment';
 import DatePicker from 'material-ui/DatePicker';
 import styled from 'styled-components';
 
-const DATE_FORMAT = 'DD.MM.YYYY';
+import { DATE_FORMAT } from '../utils/constants';
 
 const ErrorField = styled.div`
 color: #d9534f;
@@ -28,6 +28,7 @@ export default class RenderDatePicker extends React.Component {
     return (
       <div>
         <DatePicker
+          formatDate={date => moment(date).format(DATE_FORMAT)}
           name={input.name}
           onChange={this.handleChange}
           floatingLabelText={label}

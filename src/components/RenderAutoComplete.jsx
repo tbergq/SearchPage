@@ -16,12 +16,25 @@ export default class RenderAutoComplete extends React.Component {
   constructor(props) {
     super(props);
 
+    this.closed = this.closed.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  closed() {
+    const { dataSource, input } = this.props;
+    if (!input.value) {
+      return;
+    }
+    setTimeout(() => {
+      const item = dataSource.find(i => i.value === input.value);
+      if (!item && dataSource.length) {
+        this.handleChange(dataSource[0].value);
+      }
+    });
   }
 
   handleChange(value) {
     const { input, searchSuggestionChange, changeKey } = this.props;
-
     input.onChange(value);
     this.debounce = setTimeout(() => {
       searchSuggestionChange(value, changeKey);
@@ -39,9 +52,16 @@ export default class RenderAutoComplete extends React.Component {
           floatingLabelText={label}
           dataSourceConfig={dataSourceConfig}
           filter={MaterialUIAutoComplete.caseInsensitiveFilter}
+          onClose={this.closed}
+          maxSearchResults={20}
         />
         <ErrorField>
-          {meta.submitFailed && meta.error ? 'This field is required' : null}
+          {meta.submitFailed && meta.error && meta.error === 'Required'
+            ? 'This field is required'
+            : null}
+          {meta.submitFailed && meta.error && meta.error === 'Invalid pick'
+            ? 'Please select a field from the dropdown menu'
+            : null}
         </ErrorField>
       </div>
     );

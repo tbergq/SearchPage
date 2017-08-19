@@ -9,6 +9,7 @@ const initialState = {
   toSuggestions: [],
   flights: [],
   searchingFlights: false,
+  searchPerformed: false,
 };
 
 export default function searchPageReducer(state = initialState, action) {
@@ -26,6 +27,7 @@ export default function searchPageReducer(state = initialState, action) {
       return Object.assign({}, state, {
         flights: action.flights.data,
         searchingFlights: false,
+        searchPerformed: true,
       });
     case SEARCHING_FLIGHTS:
       return Object.assign({}, state, { searchingFlights: true });

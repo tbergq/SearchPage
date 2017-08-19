@@ -21,7 +21,7 @@ const TimeAndStop = styled.div`
 const FlightListItem = ({ flight }) => (
   <ListItemWrapper>
     <Card>
-      <FlightListItemTitle airlines={flight.airlines} />
+      <FlightListItemTitle airlines={flight.airlines} price={flight.price} />
       <CardText>
         <CardTextWrapper>
           <FlightInfo
@@ -47,6 +47,15 @@ const FlightListItem = ({ flight }) => (
 FlightListItem.propTypes = {
   flight: PropTypes.shape({
     airlines: PropTypes.arrayOf(PropTypes.string).isRequired,
+    price: PropTypes.number.isRequired,
+    cityFrom: PropTypes.string.isRequired,
+    dTime: PropTypes.number.isRequired,
+    flyFrom: PropTypes.string.isRequired,
+    fly_duration: PropTypes.string.isRequired,
+    route: PropTypes.arrayOf(PropTypes.object).isRequired,
+    cityTo: PropTypes.string.isRequired,
+    aTime: PropTypes.number.isRequired,
+    flyTo: PropTypes.string.isRequired,
   }).isRequired,
 };
 

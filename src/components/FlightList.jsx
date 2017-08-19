@@ -12,9 +12,10 @@ const Wrapper = styled.div`
   max-width: 1172px;
 `;
 
-const FlightList = ({ flights }) => (
+const FlightList = ({ flights, searchPerformed }) => (
   <Wrapper>
     {flights.map(flight => <FlightListItem key={flight.id} flight={flight} />)}
+    {!flights.length && searchPerformed ? 'No flights found' : null}
   </Wrapper>
 );
 
@@ -24,6 +25,7 @@ FlightList.propTypes = {
       id: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  searchPerformed: PropTypes.bool.isRequired,
 };
 
 export default FlightList;

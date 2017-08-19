@@ -38,7 +38,7 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    const { flights, searchingFlights } = this.props;
+    const { flights, searchingFlights, searchPerformed } = this.props;
     return (
       <Wrapper>
         <SearchFormWrapper className="row">
@@ -51,7 +51,7 @@ class SearchPage extends React.Component {
         </SearchFormWrapper>
         <div className="row">
           <div className="col-xs-12">
-            <FlightList flights={flights} />
+            <FlightList flights={flights} searchPerformed={searchPerformed} />
             {searchingFlights ? <CircularProgress /> : null}
           </div>
         </div>
@@ -66,6 +66,7 @@ SearchPage.propTypes = {
   searchFlights: PropTypes.func.isRequired,
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchingFlights: PropTypes.bool.isRequired,
+  searchPerformed: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
