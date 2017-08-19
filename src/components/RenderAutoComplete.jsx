@@ -19,11 +19,13 @@ export default class RenderAutoComplete extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(value, dataSource, params) {
+  handleChange(value) {
     const { input, searchSuggestionChange, changeKey } = this.props;
-    console.log(dataSource, params);
+
     input.onChange(value);
-    searchSuggestionChange(value, changeKey);
+    this.debounce = setTimeout(() => {
+      searchSuggestionChange(value, changeKey);
+    }, 250);
   }
 
   render() {
