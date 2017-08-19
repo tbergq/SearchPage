@@ -7,6 +7,10 @@ import Routes from './components/Routes';
 import Navbar from './components/Navigationbar';
 
 injectGlobal`
+  html { 
+    overflow: auto;
+  }
+  
   body {
     margin: 0;
   }

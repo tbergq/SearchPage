@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DatePicker from 'material-ui/DatePicker';
+import styled from 'styled-components';
 
 const DATE_FORMAT = 'DD.MM.YYYY';
+
+const ErrorField = styled.div`
+color: #d9534f;
+`;
 
 export default class RenderDatePicker extends React.Component {
   constructor(props) {
@@ -18,7 +23,7 @@ export default class RenderDatePicker extends React.Component {
   }
 
   render() {
-    const { input, label, meta: { touched, error } } = this.props;
+    const { input, label, meta } = this.props;
 
     return (
       <div>
@@ -26,8 +31,12 @@ export default class RenderDatePicker extends React.Component {
           name={input.name}
           onChange={this.handleChange}
           floatingLabelText={label}
+          minDate={new Date()}
+          container="inline"
         />
-        {touched && error && <span>{error}</span>}
+        <ErrorField>
+          {meta.submitFailed && meta.error ? 'This field is required' : null}
+        </ErrorField>
       </div>
     );
   }
@@ -39,8 +48,8 @@ RenderDatePicker.propTypes = {
     value: PropTypes.string.isRequired,
   }).isRequired,
   meta: PropTypes.shape({
-    touched: PropTypes.bool,
-    error: PropTypes.bool,
+    submitFailed: PropTypes.bool,
+    error: PropTypes.string,
   }).isRequired,
   label: PropTypes.string.isRequired,
 };

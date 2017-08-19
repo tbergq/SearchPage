@@ -1,11 +1,16 @@
 import React from 'react';
 import MaterialUIAutoComplete from 'material-ui/AutoComplete';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const dataSourceConfig = {
   text: 'value',
   value: 'id',
 };
+
+const ErrorField = styled.div`
+  color: #d9534f;
+`;
 
 export default class RenderAutoComplete extends React.Component {
   constructor(props) {
@@ -21,7 +26,7 @@ export default class RenderAutoComplete extends React.Component {
   }
 
   render() {
-    const { input, dataSource, label } = this.props;
+    const { input, dataSource, label, meta } = this.props;
     return (
       <div>
         <MaterialUIAutoComplete
@@ -32,6 +37,9 @@ export default class RenderAutoComplete extends React.Component {
           dataSourceConfig={dataSourceConfig}
           filter={MaterialUIAutoComplete.caseInsensitiveFilter}
         />
+        <ErrorField>
+          {meta.submitFailed && meta.error ? 'This field is required' : null}
+        </ErrorField>
       </div>
     );
   }
@@ -51,4 +59,8 @@ RenderAutoComplete.propTypes = {
   label: PropTypes.string.isRequired,
   searchSuggestionChange: PropTypes.func.isRequired,
   changeKey: PropTypes.string.isRequired,
+  meta: PropTypes.shape({
+    submitFailed: PropTypes.bool,
+    error: PropTypes.string,
+  }).isRequired,
 };
