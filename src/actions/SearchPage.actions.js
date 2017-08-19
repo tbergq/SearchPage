@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_PLACES_SUCCESS = 'SEARCH_PAGE/FETCH_PLACES_SUCCESS';
+export const FETCH_FLIGHTS_SUCCESS = 'SEARCH_PAGE/FETCH_FLIGHTS_SUCCESS';
 
 export const searchSuggestionChange = (value, key) => dispatch =>
   axios
@@ -12,3 +13,17 @@ export const searchSuggestionChange = (value, key) => dispatch =>
         key,
       });
     });
+
+export const searchForFlights = (fromPlace, toPlace, date) => (dispatch) => {
+  const travelDate = date.split('.').join('%2F');
+  axios
+    .get(
+      `https://api.skypicker.com/flights?v=2&locale=en&flyFrom=${fromPlace}&to=${toPlace}&dateFrom=${travelDate}&dateTo=${travelDate}&typeFlight=return&returnFrom=&returnTo=`,
+    )
+    .then((response) => {
+      dispatch({
+        type: FETCH_FLIGHTS_SUCCESS,
+        flights: response.data,
+      });
+    });
+};
