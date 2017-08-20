@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CircularProgress from 'material-ui/CircularProgress';
+import Snackbar from 'material-ui/Snackbar';
 
 import SearchFormContainer from './SearchFormContainer';
 import FlightList from '../components/FlightList';
@@ -10,6 +11,7 @@ import { getSearchPage } from '../reducers';
 import {
   searchSuggestionChange,
   searchForFlights,
+  placeError,
 } from '../actions/SearchPage.actions';
 
 const Wrapper = styled.div`
@@ -29,16 +31,35 @@ class SearchPage extends React.Component {
   }
 
   submitSearchForm(values) {
-    const { fromSuggestions, toSuggestions, searchFlights } = this.props;
+    const {
+      fromSuggestions,
+      toSuggestions,
+      searchFlights,
+      setPlaceError,
+    } = this.props;
     const fromPlace = fromSuggestions.find(
       place => place.value === values.from,
     );
     const toPlace = toSuggestions.find(place => place.value === values.to);
+    if (!fromPlace) {
+      setPlaceError('Invalid from place, please select again');
+      return;
+    }
+    if (!toPlace) {
+      setPlaceError('Invalid to place, please select again');
+      return;
+    }
     searchFlights(fromPlace.id, toPlace.id, values.date);
   }
 
   render() {
-    const { flights, searchingFlights, searchPerformed } = this.props;
+    const {
+      flights,
+      searchingFlights,
+      searchPerformed,
+      placesErrorMessage,
+      setPlaceError,
+    } = this.props;
     return (
       <Wrapper>
         <SearchFormWrapper className="row">
@@ -55,6 +76,14 @@ class SearchPage extends React.Component {
             {searchingFlights ? <CircularProgress /> : null}
           </div>
         </div>
+        <Snackbar
+          open={placesErrorMessage.length > 0}
+          message={placesErrorMessage}
+          autoHideDuration={4000}
+          onRequestClose={() => setPlaceError('')}
+          bodyStyle={{ backgroundColor: '#d9534f' }}
+          style={{ top: 0 }}
+        />
       </Wrapper>
     );
   }
@@ -67,6 +96,8 @@ SearchPage.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchingFlights: PropTypes.bool.isRequired,
   searchPerformed: PropTypes.bool.isRequired,
+  placesErrorMessage: PropTypes.string.isRequired,
+  setPlaceError: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -79,6 +110,9 @@ const mapDispatchToProps = dispatch => ({
   },
   searchFlights: (fromPlace, toPlace, date) => {
     dispatch(searchForFlights(fromPlace, toPlace, date));
+  },
+  setPlaceError: (error) => {
+    dispatch(placeError(error));
   },
 });
 

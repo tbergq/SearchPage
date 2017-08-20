@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export const FETCH_PLACES_SUCCESS = 'SEARCH_PAGE/FETCH_PLACES_SUCCESS';
 export const FETCH_FLIGHTS_SUCCESS = 'SEARCH_PAGE/FETCH_FLIGHTS_SUCCESS';
-export const SEARCHING_FLIGHTS = 'SEARCHING_FLIGHTS';
+export const SEARCHING_FLIGHTS = 'SEARCH_PAGE/SEARCHING_FLIGHTS';
+export const PLACE_ERROR = 'SEARCH_PAGE/PLACE_ERROR';
 
 export const searchSuggestionChange = (value, key) => dispatch =>
   axios
@@ -29,3 +30,8 @@ export const searchForFlights = (fromPlace, toPlace, date) => (dispatch) => {
       });
     });
 };
+
+export const placeError = errorMessage => ({
+  type: PLACE_ERROR,
+  errorMessage,
+});

@@ -2,6 +2,7 @@ import {
   FETCH_PLACES_SUCCESS,
   FETCH_FLIGHTS_SUCCESS,
   SEARCHING_FLIGHTS,
+  PLACE_ERROR,
 } from '../actions/SearchPage.actions';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   flights: [],
   searchingFlights: false,
   searchPerformed: false,
+  placesErrorMessage: '',
 };
 
 export default function searchPageReducer(state = initialState, action) {
@@ -31,6 +33,10 @@ export default function searchPageReducer(state = initialState, action) {
       });
     case SEARCHING_FLIGHTS:
       return Object.assign({}, state, { searchingFlights: true });
+    case PLACE_ERROR:
+      return Object.assign({}, state, {
+        placesErrorMessage: action.errorMessage,
+      });
     default:
       return state;
   }

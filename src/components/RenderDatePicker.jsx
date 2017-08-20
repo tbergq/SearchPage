@@ -18,7 +18,6 @@ export default class RenderDatePicker extends React.Component {
 
   handleChange(event, date) {
     const { input } = this.props;
-    console.log('date', date);
     input.onChange(moment(date).format(DATE_FORMAT));
   }
 
