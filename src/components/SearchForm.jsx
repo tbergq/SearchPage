@@ -13,14 +13,10 @@ const Wrapper = styled.div`
   padding-bottom: 24px;
 `;
 
-const InlineForm = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-`;
-
-const FormItemWrapper = styled.div`
-  margin-left: 16px;
+  align-items: flex-end;
+  padding-bottom: 7px;
 `;
 
 const SearchForm = ({
@@ -31,16 +27,18 @@ const SearchForm = ({
 }) => (
   <Wrapper>
     <form onSubmit={handleSubmit}>
-      <InlineForm>
-        <Field
-          name="from"
-          component={AutoComplete}
-          label="From"
-          dataSource={fromSuggestions}
-          searchSuggestionChange={searchSuggestionChange}
-          changeKey="fromSuggestions"
-        />
-        <FormItemWrapper>
+      <div className="row">
+        <div className="col-md-3 col-sm-6 col-xs-12">
+          <Field
+            name="from"
+            component={AutoComplete}
+            label="From"
+            dataSource={fromSuggestions}
+            searchSuggestionChange={searchSuggestionChange}
+            changeKey="fromSuggestions"
+          />
+        </div>
+        <div className="col-md-3 col-sm-6 col-xs-12">
           <Field
             name="to"
             component={AutoComplete}
@@ -49,14 +47,14 @@ const SearchForm = ({
             searchSuggestionChange={searchSuggestionChange}
             changeKey="toSuggestions"
           />
-        </FormItemWrapper>
-        <FormItemWrapper>
+        </div>
+        <div className="col-md-3 col-sm-6 col-xs-12">
           <Field name="date" component={DatePicker} label="Date" />
-        </FormItemWrapper>
-        <FormItemWrapper>
+        </div>
+        <ButtonContainer className="col-md-2 col-sm-6 col-xs-12">
           <RaisedButton label="Go" type="submit" primary />
-        </FormItemWrapper>
-      </InlineForm>
+        </ButtonContainer>
+      </div>
     </form>
   </Wrapper>
 );
