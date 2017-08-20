@@ -32,7 +32,11 @@ export default function searchPageReducer(state = initialState, action) {
         searchPerformed: true,
       });
     case SEARCHING_FLIGHTS:
-      return Object.assign({}, state, { searchingFlights: true });
+      return Object.assign({}, state, {
+        searchingFlights: true,
+        flights: [],
+        searchPerformed: false,
+      });
     case PLACE_ERROR:
       return Object.assign({}, state, {
         placesErrorMessage: action.errorMessage,
