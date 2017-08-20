@@ -57,7 +57,7 @@ class SearchPage extends React.Component {
       flights,
       searchingFlights,
       searchPerformed,
-      placesErrorMessage,
+      snackbarErrorMessage,
       setPlaceError,
     } = this.props;
     return (
@@ -77,8 +77,8 @@ class SearchPage extends React.Component {
           </div>
         </div>
         <Snackbar
-          open={placesErrorMessage.length > 0}
-          message={placesErrorMessage}
+          open={snackbarErrorMessage.length > 0}
+          message={snackbarErrorMessage}
           autoHideDuration={4000}
           onRequestClose={() => setPlaceError('')}
           bodyStyle={{ backgroundColor: '#d9534f' }}
@@ -96,7 +96,7 @@ SearchPage.propTypes = {
   flights: PropTypes.arrayOf(PropTypes.object).isRequired,
   searchingFlights: PropTypes.bool.isRequired,
   searchPerformed: PropTypes.bool.isRequired,
-  placesErrorMessage: PropTypes.string.isRequired,
+  snackbarErrorMessage: PropTypes.string.isRequired,
   setPlaceError: PropTypes.func.isRequired,
 };
 

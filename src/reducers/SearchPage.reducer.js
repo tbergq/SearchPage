@@ -3,6 +3,7 @@ import {
   FETCH_FLIGHTS_SUCCESS,
   SEARCHING_FLIGHTS,
   PLACE_ERROR,
+  FETCH_FLIGHTS_ERROR,
 } from '../actions/SearchPage.actions';
 
 const initialState = {
@@ -11,7 +12,7 @@ const initialState = {
   flights: [],
   searchingFlights: false,
   searchPerformed: false,
-  placesErrorMessage: '',
+  snackbarErrorMessage: '',
 };
 
 export default function searchPageReducer(state = initialState, action) {
@@ -31,6 +32,11 @@ export default function searchPageReducer(state = initialState, action) {
         searchingFlights: false,
         searchPerformed: true,
       });
+    case FETCH_FLIGHTS_ERROR:
+      return Object.assign({}, state, {
+        searchingFlights: false,
+        snackbarErrorMessage: action.message,
+      });
     case SEARCHING_FLIGHTS:
       return Object.assign({}, state, {
         searchingFlights: true,
@@ -39,7 +45,7 @@ export default function searchPageReducer(state = initialState, action) {
       });
     case PLACE_ERROR:
       return Object.assign({}, state, {
-        placesErrorMessage: action.errorMessage,
+        snackbarErrorMessage: action.errorMessage,
       });
     default:
       return state;

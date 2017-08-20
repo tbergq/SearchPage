@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const FETCH_PLACES_SUCCESS = 'SEARCH_PAGE/FETCH_PLACES_SUCCESS';
 export const FETCH_FLIGHTS_SUCCESS = 'SEARCH_PAGE/FETCH_FLIGHTS_SUCCESS';
+export const FETCH_FLIGHTS_ERROR = 'SEARCH_PAGE/FETCH_FLIGHTS_ERROR';
 export const SEARCHING_FLIGHTS = 'SEARCH_PAGE/SEARCHING_FLIGHTS';
 export const PLACE_ERROR = 'SEARCH_PAGE/PLACE_ERROR';
 
@@ -27,6 +28,12 @@ export const searchForFlights = (fromPlace, toPlace, date) => (dispatch) => {
       dispatch({
         type: FETCH_FLIGHTS_SUCCESS,
         flights: response.data,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: FETCH_FLIGHTS_ERROR,
+        message: 'Failed to fetch flight information, please try again',
       });
     });
 };
