@@ -1,2 +1,3 @@
-1. run yarn install
-2. yarn start
+1. clone the repository
+2. npm install
+3. npm run dev for starting development server
